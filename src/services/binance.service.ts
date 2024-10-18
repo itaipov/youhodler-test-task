@@ -45,20 +45,25 @@ export class BinanceService {
     const url = this.configService.getBinanceUrl();
     const commission = this.configService.getCommission();
 
-    this.logger.debug(`Sending request to Binance API at ${url}`);
+    try {
+      this.logger.debug(`Sending request to Binance API at ${url}`);
 
-    const { data } = await this.httpService.axiosRef.get(url);
-    const binanceData: BinanceResponseDto = data;
+      const { data } = await this.httpService.axiosRef.get(url);
+      const binanceData: BinanceResponseDto = data;
 
-    this.logger.debug(`Received data from Binance: ${JSON.stringify(binanceData)}`);
+      this.logger.debug(`Received data from Binance: ${JSON.stringify(binanceData)}`);
 
-    const bitcoinPrice = PriceMapper.toBitcoinPriceDto(binanceData, commission);
+      const bitcoinPrice = PriceMapper.toBitcoinPriceDto(binanceData, commission);
 
-    this.logger.debug(
-      `Prices calculated - Bid: ${bitcoinPrice.bid}, Ask: ${bitcoinPrice.ask}, Mid: ${bitcoinPrice.mid}, Commission: ${commission}`,
-    );
+      this.logger.debug(
+        `Prices calculated - Bid: ${bitcoinPrice.bid}, Ask: ${bitcoinPrice.ask}, Mid: ${bitcoinPrice.mid}, Commission: ${commission}`,
+      );
 
-    return bitcoinPrice;
+      return bitcoinPrice;
+    } catch (e) {
+      this.logger.error(`Failed to fetch price from Binance: ${e.message}`);
+      throw new Error(e);
+    }
   }
 
   async getLatestPrice(): Promise<BitcoinPriceDto> {
