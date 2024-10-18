@@ -8,9 +8,9 @@ Replace <PORT> with the port number you specified when starting the container.
 
 1. Copy `.env.local` to `.env`:
 
-    ```bash
-    cp .env.local .env
-    ```
+```bash
+cp .env.local .env
+```
 
 ## Build and Run the Container
 
