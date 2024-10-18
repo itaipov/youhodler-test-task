@@ -22,8 +22,8 @@ export class BinanceService {
     this.logger.log(`Setting interval for updating price every ${updateFrequency / 1000} seconds`);
 
 
-    this.intervalId = setInterval(() => {
-      this.updateBitcoinPrice();
+    this.intervalId = setInterval(async () => {
+      await this.updateBitcoinPrice();
     }, updateFrequency);
   }
 
