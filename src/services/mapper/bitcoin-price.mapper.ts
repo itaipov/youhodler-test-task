@@ -7,11 +7,6 @@ export class PriceMapper {
     const askWithCommission = +binanceData.askPrice * (1 + commission);
     const midPrice = (bidWithCommission + askWithCommission) / 2;
 
-    const bitcoinPriceDto = new BitcoinPriceDto();
-    bitcoinPriceDto.bid = bidWithCommission;
-    bitcoinPriceDto.ask = askWithCommission;
-    bitcoinPriceDto.mid = midPrice;
-
-    return bitcoinPriceDto;
+    return new BitcoinPriceDto(bidWithCommission, askWithCommission, midPrice);
   }
 }

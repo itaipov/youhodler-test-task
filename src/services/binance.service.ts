@@ -46,16 +46,16 @@ export class BinanceService {
     const commission = this.configService.getCommission();
 
     try {
-      this.logger.debug(`Sending request to Binance API at ${url}`);
+      this.logger.log(`Sending request to Binance API at ${url}`);
 
       const { data } = await this.httpService.axiosRef.get(url);
       const binanceData: BinanceResponseDto = data;
 
-      this.logger.debug(`Received data from Binance: ${JSON.stringify(binanceData)}`);
+      this.logger.log(`Received data from Binance: ${JSON.stringify(binanceData)}`);
 
       const bitcoinPrice = PriceMapper.toBitcoinPriceDto(binanceData, commission);
 
-      this.logger.debug(
+      this.logger.log(
         `Prices calculated - Bid: ${bitcoinPrice.bid}, Ask: ${bitcoinPrice.ask}, Mid: ${bitcoinPrice.mid}, Commission: ${commission}`,
       );
 
