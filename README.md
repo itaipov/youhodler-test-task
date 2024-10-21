@@ -23,6 +23,6 @@ sh run.sh <PORT>
 ## Get Bitcoin Price
 
 ```bash
-http://localhost:<PORT>/bitcoin-price
+http://localhost:<PORT>/api/bitcoin-price
 ```
 
