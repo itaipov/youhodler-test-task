@@ -9,13 +9,12 @@ import { ConfigService } from '../config/config.service';
 export class BinanceService {
   private readonly logger = new Logger(BinanceService.name);
   private latestPrice: BitcoinPriceDto;
-  private intervalId: NodeJS.Timeout;
+  private intervalId: ReturnType<typeof setInterval>;
 
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
-  ) {
-  }
+  ) {}
 
   onModuleInit() {
     const updateFrequency = this.configService.getUpdateFrequency() * 1000;
@@ -32,7 +31,6 @@ export class BinanceService {
       clearInterval(this.intervalId);
     }
   }
-
 
   async updateBitcoinPrice() {
     this.logger.log('Updating Bitcoin price...');
